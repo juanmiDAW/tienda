@@ -38,7 +38,7 @@ class ArticuloController extends Controller
         ]);
         $articulos = Articulo::create($validated);
         session()->flash('exito', 'Articulo creado correctamente.');
-        return redirect()->route('articulos.show', $articulos);
+        return redirect()->route('articulos.index', $articulos);
     }
 
     /**
