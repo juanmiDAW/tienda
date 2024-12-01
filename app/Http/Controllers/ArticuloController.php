@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Articulo;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class ArticuloController extends Controller
 {
@@ -36,9 +37,9 @@ class ArticuloController extends Controller
             'denominacion' => 'required|string|max:255',
             'precio' => 'required|max:6',
         ]);
-        $articulos = Articulo::create($validated);
+        $articulo = Articulo::create($validated);
         session()->flash('exito', 'Articulo creado correctamente.');
-        return redirect()->route('articulos.index', $articulos);
+        return redirect()->route('articulos.index',$articulo);
     }
 
     /**
@@ -46,7 +47,7 @@ class ArticuloController extends Controller
      */
     public function show(Articulo $articulo)
     {
-        //
+        return view('articulos.show', ['articulo' => $articulo]);
     }
 
     /**
@@ -54,7 +55,9 @@ class ArticuloController extends Controller
      */
     public function edit(Articulo $articulo)
     {
-        //
+        return view('articulos.edit', [
+            'articulo' => $articulo,
+        ]) ;
     }
 
     /**
@@ -62,7 +65,22 @@ class ArticuloController extends Controller
      */
     public function update(Request $request, Articulo $articulo)
     {
-        //
+        $validated = $request->validate([
+            'codigo' => [
+                'required',
+                'max:6',
+                Rule::unique('articulos')->ignore($articulo),
+            ],
+            'denominacion' => 'required|string|max:255',
+            'precio' => 'required|max:6',
+        ]);
+        // $departamento->codigo = $validated['codigo'];
+        // $departamento->denominacion = $validated['denominacion'];
+        // $departamento->localidad = $validated['localidad'];
+        $articulo->fill($validated);
+        $articulo->save();
+        session()->flash('exito', 'Articulo modificado correctamente.');
+        return redirect()->route('articulos.index');
     }
 
     /**
@@ -70,6 +88,7 @@ class ArticuloController extends Controller
      */
     public function destroy(Articulo $articulo)
     {
-        //
+        $articulo->delete();
+        return redirect()->route('articulos.index');
     }
 }
