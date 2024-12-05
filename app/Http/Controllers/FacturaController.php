@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Articulo;
 use App\Models\Factura;
 use Illuminate\Http\Request;
 
@@ -32,18 +31,17 @@ class FacturaController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'numero' => 'required|max:6|unique:facturas,numero',
-            'fecha' => 'required',
-            'usuario' => 'required|max:6',
+            'numero' => 'required|max:6|unique:facturas,numero'
         ]);
         $factura = Factura::create($validated);
         session()->flash('exito', 'Factura creada correctamente.');
-        return redirect()->route('facturas.show', $factura->id);     }
+        return redirect()->route('departamentos.show', $factura);
+    }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Factura $factura)
     {
         //
     }
@@ -51,7 +49,7 @@ class FacturaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Factura $factura)
     {
         //
     }
@@ -59,7 +57,7 @@ class FacturaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Factura $factura)
     {
         //
     }
@@ -67,7 +65,7 @@ class FacturaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Factura $factura)
     {
         //
     }

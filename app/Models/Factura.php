@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Factura extends Model
 {
+    /** @use HasFactory<\Database\Factories\FacturaFactory> */
     use HasFactory;
-    protected $fillable = ['codigo', 'denominacion', 'precio'];
+
+    protected $fillable = ['numero', 'usuario'];
 }
