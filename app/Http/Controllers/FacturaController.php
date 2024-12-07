@@ -31,11 +31,16 @@ class FacturaController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'numero' => 'required|max:6|unique:facturas,numero'
+            'numero' => 'required||unique:facturas,numero',
         ]);
-        $factura = Factura::create($validated);
+
+        $factura = Factura::create([
+            'numero' => $validated['numero'],
+            'user_id' => auth()->id(), // Asocia el usuario autenticado
+        ]);
+
         session()->flash('exito', 'Factura creada correctamente.');
-        return redirect()->route('departamentos.show', $factura);
+        return redirect()->route('facturas.index', $factura);
     }
 
     /**
@@ -43,8 +48,7 @@ class FacturaController extends Controller
      */
     public function show(Factura $factura)
     {
-        //
-    }
+        return view('facturas.show', ['factura' => $factura]);    }
 
     /**
      * Show the form for editing the specified resource.

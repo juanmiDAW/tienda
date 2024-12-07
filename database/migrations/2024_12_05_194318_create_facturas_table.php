@@ -15,8 +15,10 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->decimal('numero',6,0)->unique();
-            $table->foreignId('user')->constrained();
-            $table->index('user');
+            $table->foreignId('user_id')
+                  ->constrained('users');
+            $table->foreignId('articulos_id')
+                  ->constrained('articulos');
         });
     }
 

@@ -10,5 +10,9 @@ class Factura extends Model
     /** @use HasFactory<\Database\Factories\FacturaFactory> */
     use HasFactory;
 
-    protected $fillable = ['numero', 'usuario'];
+    protected $fillable = ['numero', 'user_id'];
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

@@ -21,7 +21,7 @@
                                         Fecha
                                     </th>
                                     <th scope="col" class="px-6 py-3">
-                                        Usuario
+                                        Usuario_ID
                                     </th>
                                 </tr>
                             </thead>
@@ -31,13 +31,15 @@
                                         class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                         <th scope="row"
                                             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            {{ $factura->numero }}
+                                            <a href="{{ route('facturas.show', $factura) }}">
+                                                {{ $factura->numero }}
+                                            </a>
                                         </th>
                                         <td class="px-6 py-4">
-                                                {{ $factura->fecha }}
+                                            {{ $factura->created_at }}
                                         </td>
                                         <td class="px-6 py-4">
-                                            {{ $factura->usuario }}
+                                            {{ $factura->user_id }}
                                         </td>
                                     </tr>
                                 @endforeach
@@ -46,7 +48,7 @@
                     </div>
                     <div class="mt-6 text-center">
                         <a href="{{ route('facturas.create') }}"
-                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 mt-7" >
+                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 mt-7">
                             Crear un nueva factura
                         </a>
                     </div>

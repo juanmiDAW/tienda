@@ -23,6 +23,7 @@ Route::middleware('auth')->group(function () {
 Route::resource('articulos', ArticuloController::class);
 Route::resource('facturas', FacturaController::class);
 
+
 // Route::resource('empleados', EmpleadoController::class);
 
 require __DIR__.'/auth.php';
